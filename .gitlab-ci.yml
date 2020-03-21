@@ -91,6 +91,8 @@ Pages:
 Docker:
   image: docker:latest
   stage: Deploying
+  services:
+    - docker:dind
   cache:
     untracked: false
     policy: pull
