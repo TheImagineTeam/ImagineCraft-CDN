@@ -54,7 +54,7 @@ WinStall:
     paths:
       - ImagineCraft_Installer.exe
   script:
-      - npm --prefix i
+      - npm --prefix imaginecraft i
       - npm run --prefix imaginecraft create-installer-win
       - mv imaginecraft/release-builds/windows-installer/ImagineCraft_Installer.exe ImagineCraft_Installer.exe
   only:
