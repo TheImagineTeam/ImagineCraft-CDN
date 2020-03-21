@@ -1,75 +1,13 @@
-stages:
-  - Compressing
-  - Packing
-  - Packaging
-  - Deploying
-
-Modded:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: Compressing
+docker-build-master:
+  # Official docker image.
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - zip -r modded.zip packs/modded/*
-  cache:
-    untracked: false
-    policy: pull-push
-    paths:
-    - modded.zip
-  only:
-    - master
-
-Vanilla:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: Compressing
-  script:
-  - zip -r vanilla.zip packs/vanilla/*
-  cache:
-    untracked: false
-    policy: pull-push
-    paths:
-      - vanilla.zip
-  only:
-    - master
-
-Win:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:node
-  stage: Packing
-  cache:
-    untracked: false
-    policy: pull-push
-    paths:
-      - node_modules/
-      - release-builds/
-  script:
-      - rm -rf .git
-      - git clone https://gitlab.com/imagineteam1/imaginecraft/ .
-      - npm i
-      - npm run package-win
-  only:
-    - master
-
-Temp2:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: Packaging
-  cache:
-    untracked: false
-    policy: pull-push
-  script:
-      - echo "Complete"
-  only:
-    - master
-
-pages:
-  stage: Deploying
-  cache:
-    untracked: false
-    policy: pull-push
-  script:
-    - rm -rf packs
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
+    - docker build --rm -f "Dockerfile" -t registry.gitlab.com/imagineteam1/web/imaginecraft:node "." 
+    - docker push registry.gitlab.com/imagineteam1/web/imaginecraft:node
   only:
     - master
