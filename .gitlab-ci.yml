@@ -38,6 +38,8 @@ Win:
     policy: pull-push
     paths:
       - imaginecraft/
+      - vanilla.zip
+      - modded.zip
   script:
       - git clone https://gitlab.com/imagineteam1/imaginecraft/
       - npm --prefix imaginecraft i
@@ -53,6 +55,8 @@ WinStall:
     policy: pull-push
     paths:
       - ImagineCraft_Installer.exe
+      - vanilla.zip
+      - modded.zip
   script:
       - npm --prefix imaginecraft i
       - npm run --prefix imaginecraft create-installer-win
@@ -64,7 +68,7 @@ Pages:
   stage: Deploying
   cache:
     untracked: false
-    policy: pull-push
+    policy: pull
   script:
     - rm -rf packs
     - rm -rf imaginecraft
