@@ -40,7 +40,7 @@ Win:
       - node_modules/
       - release-builds/
   script:
-      - rm -rf .git
+      - mv . /tmp_git
       - git clone https://gitlab.com/imagineteam1/imaginecraft/ .
       - npm i
       - npm run package-win
