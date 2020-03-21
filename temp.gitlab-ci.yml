@@ -46,7 +46,7 @@ Win:
     - master
 
 WinStall:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:node
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:mono
   stage: Packaging
   cache:
     untracked: false
