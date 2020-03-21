@@ -9,6 +9,7 @@ Modded:
   stage: Compressing
   script:
     - zip -r modded.zip packs/modded/*
+    - ls
   cache:
     untracked: false
     policy: pull-push
@@ -22,6 +23,7 @@ Vanilla:
   stage: Compressing
   script:
   - zip -r vanilla.zip packs/vanilla/*
+  - ls
   cache:
     untracked: false
     policy: pull-push
@@ -40,6 +42,7 @@ Win:
       - imaginecraft/
       - vanilla.zip
       - modded.zip
+      - ls
   script:
       - git clone https://gitlab.com/imagineteam1/imaginecraft/
       - npm --prefix imaginecraft i
@@ -61,6 +64,7 @@ WinStall:
       - npm --prefix imaginecraft i
       - npm run --prefix imaginecraft create-installer-win
       - mv imaginecraft/release-builds/windows-installer/ImagineCraft_Installer.exe ImagineCraft_Installer.exe
+      - ls
   only:
     - master
 
@@ -70,11 +74,14 @@ Pages:
     untracked: false
     policy: pull
   script:
+    - ls
     - rm -rf packs
     - rm -rf imaginecraft
     - mkdir .public
     - cp -r * .public
     - mv .public public
+    - ls
+    - ls public
   artifacts:
     paths:
       - public
