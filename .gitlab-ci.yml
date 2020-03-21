@@ -1,7 +1,53 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
+stages:
+  - Compressing
+  - Packing
+  - Packaging
+  - Deploying
+
+Modded:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Compressing
+  script:
+    - zip -r modded.zip packs/modded/*
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+    - modded.zip
+    only:
+    - master
+
+Vanilla:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Compressing
+  script:
+  - zip -r vanilla.zip packs/vanilla/*
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+      - vanilla.zip
+    only:
+    - master
+
+Temp1:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Packing
+  script:
+    - echo "Complete"
+    only:
+    - master
+
+Temp2:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Packaging
+  script:
+    - echo "Complete"
+    only:
+    - master
+
 pages:
-  stage: deploy
+  stage: Deploying
   script:
     - mkdir .public
     - cp -r * .public
