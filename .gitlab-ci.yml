@@ -1,13 +1,12 @@
 stages:
-  - CompressingVanilla
-  - CompressingModed
+  - Compressing
   - Packing
   - Packaging
   - Deploying
 
 Vanilla:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: CompressingVanilla
+  stage: Compressing
   script:
   - zip -r vanilla.zip packs/vanilla/*
   - ls
@@ -21,7 +20,7 @@ Vanilla:
 
 Modded:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: CompressingModed
+  stage: Compressing
   script:
     - zip -r modded.zip packs/modded/*
     - ls
@@ -30,7 +29,6 @@ Modded:
     policy: pull-push
     paths:
     - modded.zip
-    - vanilla.zip
   only:
     - master
 
@@ -42,8 +40,6 @@ Win:
     policy: pull-push
     paths:
       - imaginecraft/
-      - vanilla.zip
-      - modded.zip
   script:
       - git clone https://gitlab.com/imagineteam1/imaginecraft/
       - npm --prefix imaginecraft i
@@ -59,9 +55,8 @@ WinStall:
     untracked: false
     policy: pull-push
     paths:
+      - imaginecraft/
       - ImagineCraft_Installer.exe
-      - vanilla.zip
-      - modded.zip
   script:
       - npm --prefix imaginecraft i
       - npm run --prefix imaginecraft create-installer-win
@@ -74,7 +69,11 @@ Pages:
   stage: Deploying
   cache:
     untracked: false
-    policy: pull-push
+    policy: pull
+    paths:
+      - ImagineCraft_Installer.exe
+      - vanilla.zip
+      - modded.zip
   script:
     - ls
     - rm -rf packs
