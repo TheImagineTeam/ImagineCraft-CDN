@@ -74,7 +74,7 @@ Pages:
   stage: Deploying
   cache:
     untracked: false
-    policy: pull
+    policy: pull-push
   script:
     - ls
     - rm -rf packs
@@ -83,7 +83,7 @@ Pages:
     - cp -r * .public
     - mv .public public
     - ls
-    - ls pub
+    - ls public
   artifacts:
     paths:
       - public
