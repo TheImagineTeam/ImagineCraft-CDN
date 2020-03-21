@@ -1,0 +1,78 @@
+stages:
+  - Compressing
+  - Packing
+  - Packaging
+  - Deploying
+
+Modded:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Compressing
+  script:
+    - zip -r modded.zip packs/modded/*
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+    - modded.zip
+  only:
+    - master
+
+Vanilla:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+  stage: Compressing
+  script:
+  - zip -r vanilla.zip packs/vanilla/*
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+      - vanilla.zip
+  only:
+    - master
+
+Win:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:node
+  stage: Packing
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+      - imaginecraft/
+  script:
+      - git clone https://gitlab.com/imagineteam1/imaginecraft/
+      - npm --prefix imaginecraft i
+      - npm run --prefix imaginecraft package-win
+  only:
+    - master
+
+WinStall:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:node
+  stage: Packaging
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+      - ImagineCraft_Installer.exe
+  script:
+      - npm --prefix imaginecraft i
+      - npm run --prefix imaginecraft create-installer-win
+      - mv imaginecraft/release-builds/windows-installer/ImagineCraft_Installer.exe ImagineCraft_Installer.exe
+  only:
+    - master
+
+Pages:
+  stage: Deploying
+  cache:
+    untracked: false
+    policy: pull-push
+  script:
+    - rm -rf packs
+    - rm -rf imaginecraft
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
