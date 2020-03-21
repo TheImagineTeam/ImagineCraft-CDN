@@ -21,7 +21,7 @@ Vanilla:
 
 Modded:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
-  stage: CompressingModded
+  stage: CompressingModed
   script:
     - zip -r modded.zip packs/modded/*
     - ls
