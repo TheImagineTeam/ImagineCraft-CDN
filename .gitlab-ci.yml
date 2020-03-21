@@ -38,7 +38,7 @@ Win:
     policy: pull-push
     paths:
       - node_modules/
-      - release-builds/
+      - imaginecraft/
   script:
       - git clone https://gitlab.com/imagineteam1/imaginecraft/
       - npm --prefix imaginecraft i
@@ -46,14 +46,15 @@ Win:
   only:
     - master
 
-Temp2:
+WinStall:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: Packaging
   cache:
     untracked: false
     policy: pull-push
   script:
-      - echo "Complete"
+      - npm run --prefix imaginecraft create-installer-win
+      - mv imaginecraft/release-builds/windows-installer/ImagineCraft_Installer.exe ImagineCraft_Installer.exe
   only:
     - master
 
@@ -64,6 +65,7 @@ pages:
     policy: pull-push
   script:
     - rm -rf packs
+    - rm -rf imaginecraft
     - mkdir .public
     - cp -r * .public
     - mv .public public
