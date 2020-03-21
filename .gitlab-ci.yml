@@ -40,10 +40,9 @@ Win:
       - node_modules/
       - release-builds/
   script:
-      - mv . /tmp/git
-      - git clone https://gitlab.com/imagineteam1/imaginecraft/ .
-      - npm i
-      - npm run package-win
+      - git clone https://gitlab.com/imagineteam1/imaginecraft/
+      - npm --prefix imaginecraft i
+      - npm run --prefix imaginecraft package-win
   only:
     - master
 
