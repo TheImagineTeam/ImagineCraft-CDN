@@ -87,3 +87,27 @@ Pages:
       - public
   only:
     - master
+
+Docker:
+  image: docker:latest
+  stage: Deploying
+  cache:
+    untracked: false
+    policy: pull
+    paths:
+      - ImagineCraft_Installer.exe
+      - vanilla.zip
+      - modded.zip
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - rm -rf packs
+    - rm -rf imaginecraft
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
+    - docker build --rm -f "Dockerfile" -t registry.gitlab.com/imagineteam1/web/imaginecraft:live "." 
+    - docker push registry.gitlab.com/imagineteam1/web/imaginecraft:live
+  only:
+    - master
+  when: manual
