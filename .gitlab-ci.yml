@@ -14,7 +14,7 @@ Modded:
     policy: pull-push
     paths:
     - modded.zip
-    only:
+  only:
     - master
 
 Vanilla:
@@ -27,23 +27,23 @@ Vanilla:
     policy: pull-push
     paths:
       - vanilla.zip
-    only:
+  only:
     - master
 
 Temp1:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: Packing
   script:
-    - echo "Complete"
-    only:
+      - echo "Complete"
+  only:
     - master
 
 Temp2:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: Packaging
   script:
-    - echo "Complete"
-    only:
+      - echo "Complete"
+  only:
     - master
 
 pages:
