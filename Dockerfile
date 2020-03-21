@@ -1,3 +1,4 @@
-FROM ubuntu:18.04
+FROM scottyhardy/docker-wine
 RUN apt update
-RUN apt -y install zip unzip
+RUN apt -y install zip unzip nodejs git npm
+

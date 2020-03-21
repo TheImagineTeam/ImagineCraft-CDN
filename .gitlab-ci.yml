@@ -30,17 +30,29 @@ Vanilla:
   only:
     - master
 
-Temp1:
-  image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
+Win:
+  image: registry.gitlab.com/imagineteam1/web/imaginecraft:node
   stage: Packing
+  cache:
+    untracked: false
+    policy: pull-push
+    paths:
+      - node_modules/
+      - release-builds/
   script:
-      - echo "Complete"
+      - rm -rf .git
+      - git clone https://gitlab.com/imagineteam1/imaginecraft/ .
+      - npm i
+      - npm run package-win
   only:
     - master
 
 Temp2:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: Packaging
+  cache:
+    untracked: false
+    policy: pull-push
   script:
       - echo "Complete"
   only:
@@ -48,7 +60,11 @@ Temp2:
 
 pages:
   stage: Deploying
+  cache:
+    untracked: false
+    policy: pull-push
   script:
+    - rm -rf packs
     - mkdir .public
     - cp -r * .public
     - mv .public public
