@@ -112,4 +112,4 @@ Docker:
     - docker push registry.gitlab.com/imagineteam1/web/imaginecraft:live
   only:
     - master
-  when: manual
+  when: on_success
