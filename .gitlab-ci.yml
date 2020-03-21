@@ -59,7 +59,7 @@ WinStall:
   only:
     - master
 
-pages:
+Pages:
   stage: Deploying
   cache:
     untracked: false
