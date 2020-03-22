@@ -4,5 +4,5 @@
     "mc-server-host": "unifi.bbsnetwork.club",
     "mc-server-port": "25565",
     "ram-minimum": "4096",
-    "modpack-version": "1"
+    "modpack-version": "2"
 }
