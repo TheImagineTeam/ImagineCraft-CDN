@@ -9,7 +9,8 @@ Vanilla:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: ZippingVanilla
   script:
-  - zip -j -r vanilla.zip packs/vanilla/*
+  - cd packs/vanilla/
+  - zip -r vanilla.zip *
   cache:
     untracked: false
     policy: pull-push
@@ -22,7 +23,8 @@ Modded:
   image: registry.gitlab.com/imagineteam1/web/imaginecraft:zip
   stage: ZipppingModded
   script:
-    - zip -j -r modded.zip packs/modded/*
+  - cd packs/modded/
+  - zip -r modded.zip *
   cache:
     untracked: false
     policy: pull-push
