@@ -11,6 +11,9 @@ Vanilla:
   script:
   - cd packs/vanilla/
   - zip -r vanilla.zip *
+  - cd ../.
+  - cd ../.
+  - mv /packs/vanilla/vanilla.zip .
   cache:
     untracked: false
     policy: pull-push
@@ -25,6 +28,9 @@ Modded:
   script:
   - cd packs/modded/
   - zip -r modded.zip *
+  - cd ../.
+  - cd ../.
+  - mv /packs/modded/modded.zip .
   cache:
     untracked: false
     policy: pull-push
