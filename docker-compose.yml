@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  imagine_cdn:
+    build: .
+    container_name: imagine_cdn
+    hostname: imagine_cdn
+    restart: always
+    networks:
+      - traefik_default
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.imagine_cdn.rule=Host(`cdn.imagine.team`)"
+      - "traefik.http.routers.imagine_cdn.entrypoints=websecure"
+      - "traefik.http.routers.imagine_cdn.tls.certresolver=jandevresolver"
+
+networks:
+  traefik_default:
+    external: true

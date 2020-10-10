@@ -1,3 +1,7 @@
-FROM nginx:latest
+FROM nginx:alpine
+
+COPY web /usr/share/nginx/html
+
 EXPOSE 80
-ADD public /usr/share/nginx/html
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
